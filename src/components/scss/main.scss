@@ -1,0 +1,56 @@
+$red: #ffadb6;
+$green: #7ff0ba; 
+
+
+button{
+    all: unset;
+    width: 250px;
+    height: 220px;
+    background-size: cover;
+background-repeat: no-repeat;
+border-radius: 30px;
+background-position: center;
+border: 5px solid $red;
+}
+
+.card{
+
+    transition: border 0.5s;
+background-color: $red;
+
+}
+
+.selectedCard{
+    border: 5px solid $green;
+    transition: border 0.5s;
+}
+
+.containerSettings{
+    max-width: 1500px;
+display: flex;
+flex-wrap: wrap;
+gap: 10px;
+margin: auto;
+justify-content: center;
+}
+
+.containerSettings div{
+    width: 100%;
+}
+
+.cardGame{
+transition: opacity 0.6s;
+width: 100%;
+opacity: 0;
+}
+
+.btnCardGame{
+    transition: all 0.3s ease;
+    background-color: $red;}
+
+
+
+.cardAnimation{
+    opacity: 1;
+}
+
