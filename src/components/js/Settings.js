@@ -33,6 +33,7 @@ function Settings({ cards, setCards, startGame, setStartGame }) {
     let arr = shuffle(cards.concat(cards).flatMap((b, i) => (b ? i : [])));
 
     setCards(arr);
+    console.log(cards);
     setStartGame(true);
   };
   function shuffle(o) {

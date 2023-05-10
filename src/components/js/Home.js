@@ -18,6 +18,7 @@ function Home() {
       <Game
         startGame={startGame}
         finish={finish}
+        setFinish={setFinish}
         cards={cards}
         setCards={setCards}
       />
