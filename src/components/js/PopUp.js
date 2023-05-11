@@ -1,18 +1,19 @@
 import { useState, useEffect } from "react";
 import "../scss/popup.scss"
+import { newGame } from "./newGame";
 
 function PopUp({pause, finish, time, setStartGame, setFinish, setTime, setPause, setCards}) {
 const [hovered, setHovered] = useState(false);
-function newGame() {
-    if (window.confirm("Are you sure?")) {
+// function newGame() {
+//     if (window.confirm("Are you sure?")) {
       
-        setCards(new Array(10).fill(false));
-        setStartGame(false);
-        setFinish(false);
-        setTime(0);
-        setPause(false);
-    }
-  }
+//         setCards(new Array(10).fill(false));
+//         setStartGame(false);
+//         setFinish(false);
+//         setTime(0);
+//         setPause(false);
+//     }
+//   }
   return (
     <>
      {(pause || finish ) && <div className="containerPopUp">
@@ -23,7 +24,7 @@ function newGame() {
               {time - Math.floor(time / 60) * 60}
             </h2>}
             <label
-               className={hovered ? 'toogle-1 btnPause' : 'toogle-2 btnPause'}
+               className={hovered ? 'toogle-1' : 'toogle-2'}
                onMouseEnter={() => setHovered(!hovered)}
                onMouseLeave={() => setHovered(!hovered)}
               
@@ -41,7 +42,7 @@ function newGame() {
                     hovered ? 'toogle-1_button' : 'toogle-2_button'
                   }`}
                   onClick={() => {
-                    onclick = newGame();
+                    onclick = newGame(setCards, setStartGame, setFinish, setTime, setPause)
                   }}
                 ></span>
               </label>

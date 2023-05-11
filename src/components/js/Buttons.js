@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "../scss/buttons.scss";
-import "../scss/main.scss"
+import "../scss/main.scss";
+import { newGame } from "./newGame";
 
 function Buttons({startGame, finish, time, setTime, pause, setPause, setCards, setFinish,setStartGame}) {
     const [hovered, setHovered] = useState(false);
@@ -28,17 +29,18 @@ useEffect(()=> {
     }
  }
 }, [pause])
-function newGame() {
-    if (window.confirm("Are you sure?")) {
+// function newGame() {
+//     if (window.confirm("Are you sure?")) {
       
-        setCards(new Array(10).fill(false));
-        setStartGame(false);
-        setFinish(false);
-        setTime(0);
-        setPause(false);
-    }
-  }
+//         setCards(new Array(10).fill(false));
+//         setStartGame(false);
+//         setFinish(false);
+//         setTime(0);
+//         setPause(false);
+//     }
+//   }
   return (<>
+  {startGame &&<>
      <h2>
               {" "}
               Time: {Math.floor(time / 60)} :{" "}
@@ -88,11 +90,12 @@ function newGame() {
                     hoveredGame ? 'toogle-1_button btnPause' : 'toogle-2_button btnPause'
                   }`}
                   onClick={() => {
-                    onclick = newGame();
+                    onclick = newGame(setCards, setStartGame, setFinish, setTime, setPause)
                   }}
                 ></span>
               </label>
     </div>
+    </>}
     </>
   );
 }
