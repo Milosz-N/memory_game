@@ -1,0 +1,13 @@
+$green: #3bb84b; 
+.containerPopUp{
+    position: absolute;
+margin-left: auto;
+margin-right: auto;
+left: 0;
+right: 0;
+top: 20px;
+border-radius: 20px;
+width: 600px;
+height: 400px;
+background: $green;
+}

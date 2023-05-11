@@ -69,6 +69,7 @@ function Game({ startGame, finish, setFinish, cards, setCards, pause, setPause }
       if (Number.parseInt(result.length) == Number.parseInt(cards.length / 2)) {
         console.log("koniec gry");
         setFinish(true);
+        setPause(false);
       }
     }
     // clicked.push(e);

@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import "../scss/buttons.scss";
 import "../scss/main.scss"
 
-
-function Buttons({startGame, finish, time, setTime, pause, setPause}) {
+function Buttons({startGame, finish, time, setTime, pause, setPause, setCards, setFinish,setStartGame}) {
     const [hovered, setHovered] = useState(false);
     const [hoveredGame, setHoveredGame] = useState(false)
  useEffect(() => {
@@ -29,6 +28,16 @@ useEffect(()=> {
     }
  }
 }, [pause])
+function newGame() {
+    if (window.confirm("Are you sure?")) {
+      
+        setCards(new Array(10).fill(false));
+        setStartGame(false);
+        setFinish(false);
+        setTime(0);
+        setPause(false);
+    }
+  }
   return (<>
      <h2>
               {" "}
@@ -79,8 +88,7 @@ useEffect(()=> {
                     hoveredGame ? 'toogle-1_button btnPause' : 'toogle-2_button btnPause'
                   }`}
                   onClick={() => {
-                    // setPause(prevState => !prevState);
-                    console.log('klikam w drugi')
+                    onclick = newGame();
                   }}
                 ></span>
               </label>
