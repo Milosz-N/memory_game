@@ -1,22 +1,26 @@
 $red: #ffadb6;
-$green: #7ff0ba; 
+$green: #3bb84b; 
 
+h2{
+    text-align: center;
+}
 
 button{
     all: unset;
-    width: 250px;
-    height: 220px;
-    background-size: cover;
-background-repeat: no-repeat;
-border-radius: 30px;
-background-position: center;
-border: 5px solid $red;
+  
 }
 
 .card{
 
     transition: border 0.5s;
 background-color: $red;
+width: 250px;
+height: 220px;
+background-size: cover;
+background-repeat: no-repeat;
+border-radius: 30px;
+background-position: center;
+border: 5px solid $red;
 
 }
 
@@ -53,4 +57,12 @@ opacity: 0;
 .cardAnimation{
     opacity: 1;
 }
+.opacity{
+    opacity: 0.5;
+    animation: opacity 0.3s ease-in;
+}
 
+.win{
+    // border: 2px solid $green;
+    transition: border 0.6s;
+}

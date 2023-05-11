@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../scss/main.scss";
 
-function Game({ startGame,finish, setFinish, cards, setCards }) {
+function Game({ startGame, finish, setFinish, cards, setCards, pause, setPause }) {
   let board = [];
   var clicked = [];
   var result = [];
@@ -14,7 +14,9 @@ function Game({ startGame,finish, setFinish, cards, setCards }) {
         board.push(
           React.createElement(
             "button",
-            { className: "btnCardGame", onClick: handleClick, key: x },
+            
+            { className: "btnCardGame card searched", onClick: handleClick, key: x },
+            
             [
               React.createElement("img", {
                 className: "cardGame",
@@ -31,7 +33,7 @@ function Game({ startGame,finish, setFinish, cards, setCards }) {
         );
       }
       setCards(board);
-      // console.log(cards);
+      console.log(cards);
     }
   }, [startGame]);
   const handleClick = (e) => {
@@ -45,7 +47,7 @@ function Game({ startGame,finish, setFinish, cards, setCards }) {
           Element.parentNode.disabled = false;
         }
       }
-    
+
       clicked.push(e.target);
       // console.log('tutaj zaczynam liczenie');
       e.target.classList.add("cardAnimation");
@@ -59,19 +61,26 @@ function Game({ startGame,finish, setFinish, cards, setCards }) {
         result.push(clicked[clicked.length - 2].id);
         clicked[clicked.length - 2].classList.add("win");
         clicked[clicked.length - 1].classList.add("win");
-      } 
-      if(Number.parseInt(result.length) == Number.parseInt(cards.length/2)){
-        console.log('koniec gry');
-        setFinish(true)
+        clicked[clicked.length - 1].parentNode.classList.remove("searched");
+        clicked[clicked.length - 2].parentNode.classList.remove("searched");
+
+
+      }
+      if (Number.parseInt(result.length) == Number.parseInt(cards.length / 2)) {
+        console.log("koniec gry");
+        setFinish(true);
       }
     }
     // clicked.push(e);
   };
-
-  return (<>
-    <>{startGame == true && <div className="containerSettings">{cards}</div>}</>
-    <>{finish == true && <h2>Koniec</h2>}</>
-    </>
+ 
+  return (
+      <>
+        {startGame == true && <div className="containerSettings"
+        
+        >{cards}</div>}
+       
+      </>
   );
 }
 
