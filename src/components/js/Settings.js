@@ -33,7 +33,7 @@ function Settings({ cards, setCards, startGame, setStartGame }) {
     let arr = shuffle(cards.concat(cards).flatMap((b, i) => (b ? i : [])));
 
     setCards(arr);
-    console.log(cards);
+    // console.log(cards);
     setStartGame(true);
   };
   function shuffle(o) {
@@ -61,7 +61,7 @@ function Settings({ cards, setCards, startGame, setStartGame }) {
                 }}
               ></button>
             ))}
-            <div>
+            <div className="btnSettings">
               <label
                 className={` ${canStart(cards) ? "toogle-1" : "toogle-2"}`}
                 onClick={canStart(cards) ? handleStartGame : undefined}

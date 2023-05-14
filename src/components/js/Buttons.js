@@ -9,16 +9,16 @@ function Buttons({startGame, finish, time, setTime, pause, setPause, setCards, s
  useEffect(() => {
     const interval = setInterval(() => {
       if(startGame && !finish) { //I used '!paused' because I set pause initially to false. 
-        if (!pause) {
+        // if (!pause || !finish) {
           setTime(time + 1);
-        }
+        // }
       }
     }, 1000);
     return () => clearInterval(interval);
   });
 useEffect(()=> {
     const cards = document.querySelectorAll('.searched');
-    console.log(cards);
+    // console.log(cards);
     if(pause){
     for (Element of cards){
         Element.disabled = 'true'
@@ -48,7 +48,7 @@ useEffect(()=> {
             </h2>
     <div className="containerSettings">
     <label
-               className={hovered ? 'toogle-1 btnPause' : 'toogle-2 btnPause'}
+               className={hovered ? 'toogle-1' : 'toogle-2'}
                onMouseEnter={() => setHovered(!hovered)}
                onMouseLeave={() => setHovered(!hovered)}
               
@@ -62,7 +62,7 @@ useEffect(()=> {
                  
                 />
                 <span
-                  className={` ${
+                  className={`btnPause ${
                     hovered ? 'toogle-1_button' : 'toogle-2_button'
                   }`}
                   onClick={() => {
@@ -72,7 +72,7 @@ useEffect(()=> {
               </label>
 
     <label
-               className={hoveredGame ? 'toogle-1 btnPause' : 'toogle-2 btnPause'}
+               className={hoveredGame ? 'toogle-1 ' : 'toogle-2 '}
                onMouseEnter={() => setHoveredGame(!hoveredGame)}
                onMouseLeave={() => setHoveredGame(!hoveredGame)}
               
@@ -86,8 +86,8 @@ useEffect(()=> {
                  
                 />
         <span
-                  className={` ${
-                    hoveredGame ? 'toogle-1_button btnPause' : 'toogle-2_button btnPause'
+                  className={`btnNewGame ${
+                    hoveredGame ? 'toogle-1_button ' : 'toogle-2_button '
                   }`}
                   onClick={() => {
                     onclick = newGame(setCards, setStartGame, setFinish, setTime, setPause)

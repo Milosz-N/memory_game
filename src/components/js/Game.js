@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import "../scss/main.scss";
+import a from "../scss/main.scss";
 
-function Game({ startGame, finish, setFinish, cards, setCards, pause, setPause }) {
+
+
+function Game({ startGame, finish, setFinish, cards, setCards, pause, setPause, result, setResult }) {
   let board = [];
   var clicked = [];
-  var result = [];
+  // var result = [];
 
   useEffect(() => {
     if (startGame) {
@@ -15,7 +17,7 @@ function Game({ startGame, finish, setFinish, cards, setCards, pause, setPause }
           React.createElement(
             "button",
             
-            { className: "btnCardGame card searched", onClick: handleClick, key: x },
+            { className: "btnCardGame card searched", onClick: handleClick, key: cards[x]},
             
             [
               React.createElement("img", {
@@ -31,10 +33,16 @@ function Game({ startGame, finish, setFinish, cards, setCards, pause, setPause }
             ]
           )
         );
+  
+        setResult(prevState => [...prevState, {id: cards[x] > 9 ? cards[x] - 10 : cards[x], status: 0}])
+
+
       }
       setCards(board);
-      console.log(cards);
+     
+
     }
+    
   }, [startGame]);
   const handleClick = (e) => {
     e.preventDefault();
@@ -43,6 +51,7 @@ function Game({ startGame, finish, setFinish, cards, setCards, pause, setPause }
       for (Element of document.querySelectorAll(".cardAnimation")) {
         console.log(Element);
         if (!Element.classList.contains("win")) {
+          //tutaj dopisac ten warunek
           Element.classList.remove("cardAnimation");
           Element.parentNode.disabled = false;
         }
@@ -54,22 +63,41 @@ function Game({ startGame, finish, setFinish, cards, setCards, pause, setPause }
     } else {
       e.target.classList.add("cardAnimation");
       clicked.push(e.target);
-      console.log("tu bede sprawdzal");
+      // console.log("tu bede sprawdzal");
 
       if (clicked[clicked.length - 2].id == clicked[clicked.length - 1].id) {
-        console.log("znalazlem");
-        result.push(clicked[clicked.length - 2].id);
+   
+      setResult(prevState => {
+        const newState = prevState.map(obj => {
+          // 👇️ if id equals 2, update country property
+          if (obj.id == clicked[clicked.length - 2].id) {
+            return {...obj, status: 1};
+          }
+            return obj;
+        });
+  
+        return newState;
+      });
+      // setResult(newState)
+
+
+        // setResult(prevState => [...prevState, clicked[clicked.length - 2].id])
         clicked[clicked.length - 2].classList.add("win");
         clicked[clicked.length - 1].classList.add("win");
+        //mozna skasowac ta klase i dodac warunek jak pod spodem
         clicked[clicked.length - 1].parentNode.classList.remove("searched");
         clicked[clicked.length - 2].parentNode.classList.remove("searched");
+        clicked[clicked.length - 1].parentNode.style.border = ` 5px solid ${a.green}`; 
+        clicked[clicked.length - 2].parentNode.style.border = ` 5px solid ${a.green}`; 
+        clicked[clicked.length - 1].parentNode.style.transition = "border 0.5s"; 
+        clicked[clicked.length - 2].parentNode.style.transition = "border 0.5s"; 
 
 
       }
       if (Number.parseInt(result.length) == Number.parseInt(cards.length / 2)) {
         console.log("koniec gry");
         setFinish(true);
-        setPause(false);
+        // setPause(true);
       }
     }
     // clicked.push(e);

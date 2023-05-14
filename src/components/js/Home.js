@@ -3,13 +3,15 @@ import Settings from "../js/Settings.js";
 import Game from "../js/Game.js";
 import Buttons from "./Buttons.js";
 import PopUp from "./PopUp.js";
+import Result from "./Result.js";
 
 function Home() {
   const [cards, setCards] = useState(new Array(10).fill(false));
   const [startGame, setStartGame] = useState(false);
   const [finish, setFinish] = useState(false);
   const [time, setTime] = useState(0);
-  const [pause, setPause] = useState(false)
+  const [pause, setPause] = useState(false);
+  const [result, setResult] = useState([])
 
   return (
     <>
@@ -27,6 +29,8 @@ function Home() {
         setCards={setCards}
         pause={pause}
         setPause={setPause}
+        result={result}
+        setResult={setResult}
       />
       <Buttons
       startGame={startGame}
@@ -48,7 +52,14 @@ function Home() {
       setTime={setTime}
       setPause={setPause}
       setCards={setCards}
+      setResult={setResult}
       />
+      <Result
+  
+  result={[...new Map(result.map(o => [o.id, o])).values()]}
+
+   />
+
     </>
   );
 }

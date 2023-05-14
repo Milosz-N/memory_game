@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "../scss/popup.scss"
 import { newGame } from "./newGame";
 
-function PopUp({pause, finish, time, setStartGame, setFinish, setTime, setPause, setCards}) {
+function PopUp({pause, finish, time, setStartGame, setFinish, setTime, setPause, setCards, setResult}) {
 const [hovered, setHovered] = useState(false);
 // function newGame() {
 //     if (window.confirm("Are you sure?")) {
@@ -16,6 +16,7 @@ const [hovered, setHovered] = useState(false);
 //   }
   return (
     <>
+    
      {(pause || finish ) && <div className="containerPopUp">
         <h2>{pause ? 'Pause' : 'Game over'}</h2>
         {!pause &&  <h2>
@@ -42,7 +43,7 @@ const [hovered, setHovered] = useState(false);
                     hovered ? 'toogle-1_button' : 'toogle-2_button'
                   }`}
                   onClick={() => {
-                    onclick = newGame(setCards, setStartGame, setFinish, setTime, setPause)
+                    onclick = newGame(setCards, setStartGame, setFinish, setTime, setPause, setResult)
                   }}
                 ></span>
               </label>

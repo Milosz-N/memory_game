@@ -7,7 +7,7 @@ $green: #7ff0ba;
   
   .toogle-2, .toogle-1{
     display: flex;
-    margin: auto;
+    // margin: auto;
     animation-delay: 2s;
     animation: 1.5s ease-out  1 opacity;
     width: 180px;
@@ -76,6 +76,33 @@ $green: #7ff0ba;
     right: 10px
   }
 
-  .btnPause{
+  .btnPause, .btnNewGame{
     margin: unset;
+  }
+
+  .btnPause::before{
+   
+    content: 'Pause';
+    height: 40px;
+    display: flex;
+justify-content: center;
+align-items: center;
+font-size: 20px;
+
+  }
+
+  
+  .btnNewGame::before{
+   
+    content: 'New Game';
+    height: 40px;
+    display: flex;
+justify-content: center;
+align-items: center;
+font-size: 20px;
+
+  }
+
+  .btnSettings{
+    justify-content: center;
   }

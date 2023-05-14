@@ -1,0 +1,27 @@
+ .divResult img{
+    width: 200px;
+    border-radius: 15px;
+    height: 150px;
+    margin: 10px;
+    opacity: 1;
+    animation: 100ms ease-out 1 position;
+}
+
+.divResult{
+  width: 40% !important;
+  justify-content: unsset;
+  flex-wrap: wrap;
+
+}
+@keyframes position {
+    0% { transform: translateX(1000px); opacity: 0.5;}
+    100% { transform: translateY(0); opacity: 1; }
+  }
+
+  @for $i from 1 through 2 {
+    .divResult img:nth-child(#{$i}) {
+  
+      animation: $i*600ms ease-out 1 position;
+    }
+   
+  }
