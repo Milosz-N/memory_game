@@ -11,3 +11,10 @@ width: 600px;
 height: 400px;
 background: $green
 }
+
+.containerPopUp div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 20px
+}

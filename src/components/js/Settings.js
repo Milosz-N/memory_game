@@ -8,17 +8,12 @@ function Settings({ cards, setCards, startGame, setStartGame }) {
       .keys()
       .map(require.context("../img", false, /\.(|jpe?g|)$/))
   );
-  // useEffect(()=> {
-  // console.log(cards)
-
-  //  }, [cards])
 
   const handleCheckboxChange = (position) => {
     const updatedCheckedState = cards.map((item, index) =>
       index === position ? !item : item
     );
     setCards(updatedCheckedState);
-    // console.log(cards);
   };
   function canStart(array) {
     var map = array.reduce(function (prev, cur) {
@@ -31,9 +26,7 @@ function Settings({ cards, setCards, startGame, setStartGame }) {
   const handleStartGame = (e) => {
     e.preventDefault();
     let arr = shuffle(cards.concat(cards).flatMap((b, i) => (b ? i : [])));
-
     setCards(arr);
-    // console.log(cards);
     setStartGame(true);
   };
   function shuffle(o) {

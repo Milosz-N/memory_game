@@ -27,7 +27,7 @@ $green: #7ff0ba;
     
   }
   .toogle-1_button, .toogle-2_button{
-    font-size: 1rem;
+    font-size: 20px;
     line-height: 20px;
     border-radius: 10px;
     position: relative;
@@ -105,4 +105,41 @@ font-size: 20px;
 
   .btnSettings{
     justify-content: center;
+  }
+
+  .toogle-1_button:hover{
+    background-color: $red;
+    border: 1px solid $red;
+  }
+
+  .toogle-1:hover{
+    .toogle-1_button{
+      background-color: $red;
+      border: 1px solid $red;
+      
+    }
+    .toogle-1_button::before{
+      // content: 'Choose pictrues';
+      background: white;
+      color: $green;
+      left: 10px;
+      font-size: 14px;
+    }
+  }
+  .btn-pause::before{
+    content: 'Pause';
+
+  }
+
+  .btn-newGame::before{
+    content: 'New Game';
+   
+  }
+
+  .btn-newGame::before, .btn-pause::before{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    font-size: 20px;
   }

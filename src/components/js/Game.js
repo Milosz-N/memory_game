@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from "react";
 import a from "../scss/main.scss";
-
-
-
-function Game({ startGame, finish, setFinish, cards, setCards, pause, setPause, result, setResult }) {
+function Game({
+  startGame,
+  finish,
+  setFinish,
+  cards,
+  setCards,
+  pause,
+  setPause,
+  result,
+  setResult,
+}) {
   let board = [];
   var clicked = [];
+  let arrResult = [];
   // var result = [];
-
   useEffect(() => {
     if (startGame) {
       //id musza sie zgadzac a name roznic
@@ -16,9 +23,13 @@ function Game({ startGame, finish, setFinish, cards, setCards, pause, setPause, 
         board.push(
           React.createElement(
             "button",
-            
-            { className: "btnCardGame card searched", onClick: handleClick, key: cards[x]},
-            
+
+            {
+              className: "btnCardGame card searched",
+              onClick: handleClick,
+              key: cards[x],
+            },
+
             [
               React.createElement("img", {
                 className: "cardGame",
@@ -33,30 +44,27 @@ function Game({ startGame, finish, setFinish, cards, setCards, pause, setPause, 
             ]
           )
         );
-  
-        setResult(prevState => [...prevState, {id: cards[x] > 9 ? cards[x] - 10 : cards[x], status: 0}])
 
-
+        setResult((prevState) => [
+          ...prevState,
+          { id: cards[x] > 9 ? cards[x] - 10 : cards[x], status: 0 },
+        ]);
       }
       setCards(board);
-     
-
     }
-    
   }, [startGame]);
   const handleClick = (e) => {
     e.preventDefault();
     e.target.parentNode.disabled = true;
     if (clicked.length == 0 || clicked.length % 2 == 0) {
       for (Element of document.querySelectorAll(".cardAnimation")) {
-        console.log(Element);
+        // console.log(Element);
         if (!Element.classList.contains("win")) {
           //tutaj dopisac ten warunek
           Element.classList.remove("cardAnimation");
           Element.parentNode.disabled = false;
         }
       }
-
       clicked.push(e.target);
       // console.log('tutaj zaczynam liczenie');
       e.target.classList.add("cardAnimation");
@@ -66,50 +74,46 @@ function Game({ startGame, finish, setFinish, cards, setCards, pause, setPause, 
       // console.log("tu bede sprawdzal");
 
       if (clicked[clicked.length - 2].id == clicked[clicked.length - 1].id) {
-   
-      setResult(prevState => {
-        const newState = prevState.map(obj => {
-          // 👇️ if id equals 2, update country property
-          if (obj.id == clicked[clicked.length - 2].id) {
-            return {...obj, status: 1};
-          }
+        arrResult.push(clicked[clicked.length - 1].id);
+        setResult((prevState) => {
+          const newState = prevState.map((obj) => {
+            // 👇️ if id equals 2, update country property
+            if (obj.id == clicked[clicked.length - 2].id) {
+              return { ...obj, status: 1 };
+            }
             return obj;
+          });
+
+          return newState;
         });
-  
-        return newState;
-      });
-      // setResult(newState)
 
-
-        // setResult(prevState => [...prevState, clicked[clicked.length - 2].id])
         clicked[clicked.length - 2].classList.add("win");
         clicked[clicked.length - 1].classList.add("win");
-        //mozna skasowac ta klase i dodac warunek jak pod spodem
         clicked[clicked.length - 1].parentNode.classList.remove("searched");
         clicked[clicked.length - 2].parentNode.classList.remove("searched");
-        clicked[clicked.length - 1].parentNode.style.border = ` 5px solid ${a.green}`; 
-        clicked[clicked.length - 2].parentNode.style.border = ` 5px solid ${a.green}`; 
-        clicked[clicked.length - 1].parentNode.style.transition = "border 0.5s"; 
-        clicked[clicked.length - 2].parentNode.style.transition = "border 0.5s"; 
-
-
+        clicked[
+          clicked.length - 1
+        ].parentNode.style.border = ` 5px solid ${a.green}`;
+        clicked[
+          clicked.length - 2
+        ].parentNode.style.border = ` 5px solid ${a.green}`;
+        clicked[clicked.length - 1].parentNode.style.transition = "border 0.5s";
+        clicked[clicked.length - 2].parentNode.style.transition = "border 0.5s";
       }
-      if (Number.parseInt(result.length) == Number.parseInt(cards.length / 2)) {
+      if (
+        Number.parseInt(arrResult.length) == Number.parseInt(cards.length / 2)
+      ) {
         console.log("koniec gry");
         setFinish(true);
         // setPause(true);
       }
     }
+
     // clicked.push(e);
   };
- 
+
   return (
-      <>
-        {startGame == true && <div className="containerSettings"
-        
-        >{cards}</div>}
-       
-      </>
+    <>{startGame == true && <div className="containerSettings">{cards}</div>}</>
   );
 }
 
