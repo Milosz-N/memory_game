@@ -72,9 +72,7 @@ $green: #7ff0ba;
   
   }
 
-  .startGame_button:hover{
-    right: 10px
-  }
+ 
 
   .btnPause, .btnNewGame{
     margin: unset;
@@ -119,7 +117,6 @@ font-size: 20px;
       
     }
     .toogle-1_button::before{
-      // content: 'Choose pictrues';
       background: white;
       color: $green;
       left: 10px;
@@ -128,6 +125,11 @@ font-size: 20px;
   }
   .btn-pause::before{
     content: 'Pause';
+
+  }
+  .btn-back::before{
+    content: 'Back to game';
+    font-size: 16px;
 
   }
 

@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "../scss/main.scss";
 import "../scss/buttons.scss";
+import Button from "./Button";
 function Settings({ cards, setCards, startGame, setStartGame }) {
   const [images, setImages] = useState(
     require
@@ -55,23 +56,11 @@ function Settings({ cards, setCards, startGame, setStartGame }) {
               ></button>
             ))}
             <div className="btnSettings">
-              <label
-                className={` ${canStart(cards) ? "toogle-1" : "toogle-2"}`}
-                onClick={canStart(cards) ? handleStartGame : undefined}
-              >
-                <input
-                  type="checkbox"
-                  id="toggle1"
-                  className={` ${
-                    canStart(cards) ? "toogle-1_input" : "toogle-2_input"
-                  }`}
-                />
-                <span
-                  className={` ${
-                    canStart(cards) ? "toogle-1_button" : "toogle-2_button"
-                  }`}
-                ></span>
-              </label>
+            <Button
+              action ={canStart(cards) ? handleStartGame : undefined}
+              name={"btn-startGame"}
+              condition={canStart(cards)}
+             />
             </div>
           </div>
         </>

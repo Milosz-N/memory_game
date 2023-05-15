@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import "../scss/buttons.scss";
 import "../scss/main.scss";
-import { newGame } from "./newGame";
 import Button from "./Button";
 
 function Buttons({
@@ -11,10 +10,7 @@ function Buttons({
   setTime,
   pause,
   setPause,
-  setCards,
-  setFinish,
-  setStartGame,
-  setResult,
+  newGame
 }) {
 
   useEffect(() => {
@@ -52,23 +48,14 @@ function Buttons({
     <>
       {startGame && (
         <>
-          <h2>
+          <h2 className="time">
             {" "}
             Time: {Math.floor(time / 60)} : {time - Math.floor(time / 60) * 60}
           </h2>
           <div className="containerSettings">
             <Button
               name={"btn-newGame"}
-              action={() => {
-                onclick = newGame(
-                  setCards,
-                  setStartGame,
-                  setFinish,
-                  setTime,
-                  setPause,
-                  setResult
-                );
-              }}
+              action={newGame}
             />
             <Button
               action={() => {

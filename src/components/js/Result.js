@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import "../scss/result.scss";
 
 function Result({ result }) {
-  console.log(result);
   return (
     <div className="containerSettings">
       <div className="divResult">

@@ -1,24 +1,17 @@
-import React, { useState, useEffect } from "react";
-import a from "../scss/main.scss";
+import React, {  useEffect } from "react";
+import '../scss/main.scss'
 function Game({
   startGame,
-  finish,
   setFinish,
   cards,
   setCards,
-  pause,
-  setPause,
-  result,
   setResult,
 }) {
   let board = [];
   var clicked = [];
   let arrResult = [];
-  // var result = [];
   useEffect(() => {
     if (startGame) {
-      //id musza sie zgadzac a name roznic
-
       for (let x = 0; x < cards.length; x++) {
         board.push(
           React.createElement(
@@ -44,7 +37,6 @@ function Game({
             ]
           )
         );
-
         setResult((prevState) => [
           ...prevState,
           { id: cards[x] > 9 ? cards[x] - 10 : cards[x], status: 0 },
@@ -58,9 +50,7 @@ function Game({
     e.target.parentNode.disabled = true;
     if (clicked.length == 0 || clicked.length % 2 == 0) {
       for (Element of document.querySelectorAll(".cardAnimation")) {
-        // console.log(Element);
         if (!Element.classList.contains("win")) {
-          //tutaj dopisac ten warunek
           Element.classList.remove("cardAnimation");
           Element.parentNode.disabled = false;
         }
@@ -91,25 +81,16 @@ function Game({
         clicked[clicked.length - 1].classList.add("win");
         clicked[clicked.length - 1].parentNode.classList.remove("searched");
         clicked[clicked.length - 2].parentNode.classList.remove("searched");
-        clicked[
-          clicked.length - 1
-        ].parentNode.style.border = ` 5px solid ${a.green}`;
-        clicked[
-          clicked.length - 2
-        ].parentNode.style.border = ` 5px solid ${a.green}`;
-        clicked[clicked.length - 1].parentNode.style.transition = "border 0.5s";
-        clicked[clicked.length - 2].parentNode.style.transition = "border 0.5s";
+       
       }
       if (
         Number.parseInt(arrResult.length) == Number.parseInt(cards.length / 2)
       ) {
-        console.log("koniec gry");
+        // console.log("koniec gry");
         setFinish(true);
         // setPause(true);
       }
     }
-
-    // clicked.push(e);
   };
 
   return (
