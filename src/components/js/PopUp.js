@@ -1,40 +1,32 @@
-
 import "../scss/popup.scss";
 import Button from "./Button";
-function PopUp({
-  pause,
-  finish,
-  time,
-  setPause,
-  newGame
-}) {
- 
+function PopUp({ newGame, game, setGame }) {
   return (
     <>
-      {(pause || finish) && (
+      {(game.pause || game.finish) && (
         <div className="containerPopUp">
-          <h2>{pause ? "Pause" : "Game over"}</h2>
-          {!pause && (
+          <h2>{game.pause ? "Pause" : "Game over"}</h2>
+          {!game.pause && (
             <h2>
               {" "}
-              Time: {Math.floor(time / 60)} :{" "}
-              {time - Math.floor(time / 60) * 60}
+              Time: {Math.floor(game.time / 60)} :{" "}
+              {game.time - Math.floor(game.time / 60) * 60}
             </h2>
           )}
-        
+
           <div>
-           <Button
-              name={"btn-newGame"}
-              action={newGame}
-            />
-          {!finish && (
-            <Button
-            action={() => {
-              setPause((prevState) => !prevState);
-            }}
-            name={"btn-back"}
-          />
-          )}
+            <Button name={"btn-newGame"} action={newGame} />
+            {!game.finish && (
+              <Button
+                action={() => {
+                  setGame((prevState) => ({
+                    ...prevState,
+                    pause: !game.pause,
+                  }));
+                }}
+                name={"btn-back"}
+              />
+            )}
           </div>
         </div>
       )}

@@ -2,7 +2,7 @@ import { useState } from "react";
 import "../scss/main.scss";
 import "../scss/buttons.scss";
 import Button from "./Button";
-function Settings({ cards, setCards, startGame, setStartGame }) {
+function Settings({ game, setGame }) {
   const [images, setImages] = useState(
     require
       .context("../img", false, /\.(|jpe?g|)$/)
@@ -11,10 +11,13 @@ function Settings({ cards, setCards, startGame, setStartGame }) {
   );
 
   const handleCheckboxChange = (position) => {
-    const updatedCheckedState = cards.map((item, index) =>
+    const updatedCheckedState = game.cards.map((item, index) =>
       index === position ? !item : item
     );
-    setCards(updatedCheckedState);
+    setGame((prevState) => ({
+      ...prevState,
+      cards: updatedCheckedState,
+    }));
   };
   function canStart(array) {
     var map = array.reduce(function (prev, cur) {
@@ -26,9 +29,15 @@ function Settings({ cards, setCards, startGame, setStartGame }) {
   }
   const handleStartGame = (e) => {
     e.preventDefault();
-    let arr = shuffle(cards.concat(cards).flatMap((b, i) => (b ? i : [])));
-    setCards(arr);
-    setStartGame(true);
+    let arr = shuffle(
+      game.cards.concat(game.cards).flatMap((b, i) => (b ? i : []))
+    );
+
+    setGame((prevState) => ({
+      ...prevState,
+      cards: arr,
+      start: true,
+    }));
   };
   function shuffle(o) {
     for (
@@ -40,12 +49,12 @@ function Settings({ cards, setCards, startGame, setStartGame }) {
   }
   return (
     <>
-      {startGame == false && (
+      {game.start == false && (
         <>
           <div className="containerSettings">
             {images.map((index, x) => (
               <button
-                className={` card ${cards[x] === true && "selectedCard"}`}
+                className={` card ${game.cards[x] === true && "selectedCard"}`}
                 key={x}
                 style={{
                   backgroundImage: `url(${require(`../img/image-${x}.jpg`)})`,
@@ -56,11 +65,10 @@ function Settings({ cards, setCards, startGame, setStartGame }) {
               ></button>
             ))}
             <div className="btnSettings">
-            <Button
-              action ={canStart(cards) ? handleStartGame : undefined}
-              name={"btn-startGame"}
-              condition={canStart(cards)}
-             />
+              <Button
+                action={canStart(game.cards) ? handleStartGame : undefined}
+                name={"btn-startGame"}
+              />
             </div>
           </div>
         </>

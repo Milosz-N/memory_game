@@ -1,26 +1,27 @@
-import React, {  useEffect } from "react";
-import '../scss/main.scss'
-function Game({
-  startGame,
-  setFinish,
-  cards,
-  setCards,
-  setResult,
-}) {
+import React, { useEffect } from "react";
+import "../scss/main.scss";
+function Game({ game, setGame }) {
   let board = [];
   var clicked = [];
   let arrResult = [];
   useEffect(() => {
-    if (startGame) {
-      for (let x = 0; x < cards.length; x++) {
+    if (game.start) {
+      for (let x = 0; x < game.cards.length; x++) {
         board.push(
           React.createElement(
             "button",
 
             {
               className: "btnCardGame card searched",
-              onClick: handleClick,
-              key: cards[x],
+              onClick: (e) => {
+                // console.log(e.target.parentNode.disabled)
+                e.target.parentNode.disabled = true;
+                clicked.push(e.target);
+                e.target.classList.add("cardAnimation");
+
+                handleClick2(e, clicked, game, setGame);
+              },
+              key: game.cards[x],
             },
 
             [
@@ -28,73 +29,64 @@ function Game({
                 className: "cardGame",
                 key: x,
                 name: x,
-                id: cards[x] > 9 ? cards[x] - 10 : cards[x],
+                id: game.cards[x] > 9 ? game.cards[x] - 10 : game.cards[x],
 
                 src: require(`../img/image-${
-                  cards[x] > 9 ? cards[x] - 10 : cards[x]
+                  game.cards[x] > 9 ? game.cards[x] - 10 : game.cards[x]
                 }.jpg`),
               }),
             ]
           )
         );
-        setResult((prevState) => [
-          ...prevState,
-          { id: cards[x] > 9 ? cards[x] - 10 : cards[x], status: 0 },
-        ]);
       }
-      setCards(board);
+
+      // setCards(board);
+      setGame((prevState) => ({
+        ...prevState,
+        cards: board,
+      }));
     }
-  }, [startGame]);
-  const handleClick = (e) => {
-    e.preventDefault();
-    e.target.parentNode.disabled = true;
-    if (clicked.length == 0 || clicked.length % 2 == 0) {
-      for (Element of document.querySelectorAll(".cardAnimation")) {
-        if (!Element.classList.contains("win")) {
-          Element.classList.remove("cardAnimation");
-          Element.parentNode.disabled = false;
+  }, [game.start]);
+
+  const handleClick2 = (e, clicked, game, setGame) => {
+    if (clicked.length > 2) {
+      for (let x = 0; x < 2; x++) {
+        if (!clicked[x].classList.contains("win")) {
+          clicked[x].parentNode.disabled = false;
+          clicked[x].classList.remove("cardAnimation");
         }
       }
-      clicked.push(e.target);
-      // console.log('tutaj zaczynam liczenie');
-      e.target.classList.add("cardAnimation");
-    } else {
-      e.target.classList.add("cardAnimation");
-      clicked.push(e.target);
-      // console.log("tu bede sprawdzal");
-
-      if (clicked[clicked.length - 2].id == clicked[clicked.length - 1].id) {
+      clicked.splice(0, 2);
+    }
+    if (clicked.length > 1) {
+      if (clicked[clicked.length - 1].id == clicked[clicked.length - 2].id) {
+        // console.log('trafilem');
         arrResult.push(clicked[clicked.length - 1].id);
-        setResult((prevState) => {
-          const newState = prevState.map((obj) => {
-            // 👇️ if id equals 2, update country property
-            if (obj.id == clicked[clicked.length - 2].id) {
-              return { ...obj, status: 1 };
-            }
-            return obj;
-          });
-
-          return newState;
-        });
-
-        clicked[clicked.length - 2].classList.add("win");
-        clicked[clicked.length - 1].classList.add("win");
-        clicked[clicked.length - 1].parentNode.classList.remove("searched");
-        clicked[clicked.length - 2].parentNode.classList.remove("searched");
-       
+        clicked[0].parentNode.classList.remove("searched");
+        clicked[1].parentNode.classList.remove("searched");
+        clicked[0].classList.add("win");
+        clicked[1].classList.add("win");
+        clicked[0].parentNode.disabled = true;
+        clicked[1].parentNode.disabled = true;
       }
-      if (
-        Number.parseInt(arrResult.length) == Number.parseInt(cards.length / 2)
-      ) {
-        // console.log("koniec gry");
-        setFinish(true);
-        // setPause(true);
-      }
+    }
+    if (arrResult.length == game.cards.length / 2) {
+      // console.log('koniec');
+      setGame((prevState) => ({
+        ...prevState,
+        finish: true,
+      }));
     }
   };
 
   return (
-    <>{startGame == true && <div className="containerSettings">{cards}</div>}</>
+    <>
+      <>
+        {game.start == true && (
+          <div className="containerSettings">{game.cards}</div>
+        )}
+      </>
+    </>
   );
 }
 
