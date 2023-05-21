@@ -68,17 +68,21 @@ function Game({ game, setGame }) {
         clicked[1].classList.add("win");
         clicked[0].parentNode.disabled = true;
         clicked[1].parentNode.disabled = true;
+        setGame((prevState) => ({
+          ...prevState,
+          result: [...prevState.result, `${clicked[0].id}` ],
+        }));
       }
     }
     if (arrResult.length == game.cards.length / 2) {
-      // console.log('koniec');
+    
       setGame((prevState) => ({
         ...prevState,
         finish: true,
       }));
     }
   };
-
+console.log(game)
   return (
     <>
       <>

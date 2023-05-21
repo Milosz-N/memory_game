@@ -13,6 +13,7 @@ function Home() {
     time: 0,
     cards: new Array(10).fill(false),
     result: [],
+    selectedCards: []
   });
   return (
     <>
@@ -32,7 +33,9 @@ function Home() {
         game={game}
         setGame={setGame}
       />
-      {/* <Result result={[...new Map(result.map((o) => [o.id, o])).values()]} /> */}
+      {/* <Result result={[...new Map(game.result.map((o) => [o.id, o])).values()]} /> */}
+      <Result result={game.result}  start={game.start} />
+
     </>
   );
 }

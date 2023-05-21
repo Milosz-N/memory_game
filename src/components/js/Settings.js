@@ -32,11 +32,12 @@ function Settings({ game, setGame }) {
     let arr = shuffle(
       game.cards.concat(game.cards).flatMap((b, i) => (b ? i : []))
     );
-
+      console.log(arr)
     setGame((prevState) => ({
       ...prevState,
       cards: arr,
       start: true,
+      selectedCards: arr.filter(element => {return element < 10})
     }));
   };
   function shuffle(o) {
