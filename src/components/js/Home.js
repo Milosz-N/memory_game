@@ -34,7 +34,7 @@ function Home() {
         setGame={setGame}
       />
       {/* <Result result={[...new Map(game.result.map((o) => [o.id, o])).values()]} /> */}
-      <Result result={game.result}  start={game.start} />
+      {/* <Result result={game.result}  start={game.start} /> */}
 
     </>
   );
